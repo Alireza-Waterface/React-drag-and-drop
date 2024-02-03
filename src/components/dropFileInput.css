@@ -4,11 +4,9 @@
     height: 200px;
     border: 2px dashed var(--border-color);
     border-radius: 20px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background-color: var(--input-bg);
 }
 
@@ -86,6 +84,8 @@
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.3s ease;
+    color: red;
+    font-weight: 700;
 }
 
 .drop-file-preview__item:hover .drop-file-preview__item__del {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './dropFileInput.css';
 
 import { ImageConfig } from '../config/ImageConfig';
-import uploadImg from '../assets/cloud-upload-regular-240.png';
+import uploadImg from '../assets/upload.png';
 
 const DropFileInput = props => {
     const wrapperRef = useRef(null);
@@ -41,10 +41,14 @@ const DropFileInput = props => {
                 onDrop={onDrop}
             >
                 <div className="drop-file-input__label">
-                    <img src={uploadImg} alt="" />
+                    <img src={uploadImg} alt="Upload file icon" />
                     <p>Drag & Drop your files here</p>
                 </div>
-                <input type="file" value="" onChange={onFileDrop}/>
+                <input
+                    type="file"
+                    required
+                    onChange={onFileDrop}
+                />
             </div>
             {
                 fileList.length > 0 && (
@@ -55,7 +59,10 @@ const DropFileInput = props => {
                         {
                             fileList.map((item, index) => (
                                 <div key={index} className="drop-file-preview__item">
-                                    <img src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']} alt="" />
+                                    <img
+                                        src={ImageConfig[item.name.split('.')[item.name.split('.').length - 1]] || ImageConfig['default']}
+                                        alt={item.name.split('.')[item.name.split('.').length - 1]}
+                                    />
                                     <div className="drop-file-preview__item__info">
                                         <p>{item.name}</p>
                                         <p>
@@ -71,7 +78,7 @@ const DropFileInput = props => {
                                             }
                                         </p>
                                     </div>
-                                    <span className="drop-file-preview__item__del" onClick={() => fileRemove(item)}>x</span>
+                                    <span className="drop-file-preview__item__del" onClick={() => fileRemove(item)}>X</span>
                                 </div>
                             ))
                         }
