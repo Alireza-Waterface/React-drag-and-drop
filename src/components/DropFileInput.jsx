@@ -59,7 +59,7 @@ const DropFileInput = props => {
                         {
                             fileList.map((item, index) => (
                                 <div key={index} className="drop-file-preview__item">
-                                    <img
+                                    <img // code below just gets the last item from the splitted array
                                         src={ImageConfig[item.name.split('.')[item.name.split('.').length - 1]] || ImageConfig['default']}
                                         alt={item.name.split('.')[item.name.split('.').length - 1]}
                                     />
@@ -74,7 +74,7 @@ const DropFileInput = props => {
                                                 :
                                                 (item.size >= 1024000000 && item.size < 1024000000000) ? `${(item.size / 1024000000).toFixed(2)} GB`
                                                 :
-                                                'Too large'
+                                                '1TB or larger' // You can go further but no need to do that
                                             }
                                         </p>
                                     </div>
