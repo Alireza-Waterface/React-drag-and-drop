@@ -16,12 +16,15 @@ const DropFileInput = props => {
     const onDrop = () => wrapperRef.current.classList.remove('dragover');
 
     const onFileDrop = (e) => {
-        const newFile = e.target.files[0];
-        if (newFile) {
-            const updatedList = [...fileList, newFile];
-            setFileList(updatedList);
-            props.onFileChange(updatedList);
-        }
+        const temp = [];
+        Object.entries(e.target.files).forEach(file => {
+            if (file[1]) {
+                temp.push(file[1]);
+            }
+        });
+        const updatedList = [...fileList, ...temp];
+        setFileList(updatedList);
+        props.onFileChange(updatedList);
     };
 
     const fileRemove = (file) => {
@@ -48,6 +51,7 @@ const DropFileInput = props => {
                     type="file"
                     required
                     onChange={onFileDrop}
+                    multiple={true}
                 />
             </div>
             {
@@ -60,7 +64,7 @@ const DropFileInput = props => {
                             fileList.map((item, index) => (
                                 <div key={index} className="drop-file-preview__item">
                                     <img // code below just gets the last item from the splitted array
-                                        src={ImageConfig[item.name.split('.')[item.name.split('.').length - 1]] || ImageConfig['default']}
+                                        src={ImageConfig[item.name.toLowerCase().split('.')[item.name.split('.').length - 1]] || ImageConfig['default']}
                                         alt={item.name.split('.')[item.name.split('.').length - 1]}
                                     />
                                     <div className="drop-file-preview__item__info">
@@ -90,7 +94,7 @@ const DropFileInput = props => {
 }
 
 DropFileInput.propTypes = {
-    onFileChange: PropTypes.func
+    onFileChange: PropTypes.func,
 };
 
 export default DropFileInput;
